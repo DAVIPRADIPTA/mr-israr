@@ -23,7 +23,10 @@ export const metadata: Metadata = {
     description: "Lembaga kursus berkualitas dengan maksimal 10 siswa per kelas. Biaya terjangkau dan suasana kekeluargaan.",
     type: "website",
     locale: "id_ID",
-  }
+  },
+  verification: {
+    google: 'E1XYyRnSITfuYcSusqK7N_h8iny_GvMDDphozc46aZQ', // Ganti dengan kode acak milik Anda
+  },
 }
 
 export default function RootLayout({
