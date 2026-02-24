@@ -45,8 +45,8 @@ export default function Home() {
               <Image 
                 src="/logo.png" 
                 alt="Logo Mr. Israr Course" 
-                width={40} 
-                height={40} 
+                width={70} 
+                height={70} 
                 className="object-contain" // Memastikan proporsi logo tidak peyang
               />
               <span className="font-bold text-xl tracking-tight text-gray-900">Mr. ISRAR'S COURSE</span>
