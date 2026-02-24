@@ -12,11 +12,19 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata = {
-  title: "Mr. Israr's Math & English Course - Lembaga Kursus Terpercaya",
-  description: "Kursus Matematika dan Bahasa Inggris di Lampung. Daftar sekarang untuk meningkatkan kualitas akademik anak Anda.",
-  keywords: ["Kursus Bahasa Inggris", "Kursus Matematika", "Mr Israr", "Bimbel Lampung"],
-};
+
+
+export const metadata: Metadata = {
+  title: "Mr. Israr's Course | Kursus Matematika & Bahasa Inggris",
+  description: "Lembaga kursus Matematika dan Bahasa Inggris berkualitas dengan maksimal 10 siswa per kelas. Tersedia untuk SD dan SMP. Daftar sekarang!",
+  keywords: ["kursus bahasa inggris", "kursus matematika", "les bahasa inggris", "les matematika", "Mr Israr Course"],
+  openGraph: {
+    title: "Mr. Israr's Course | Kursus Matematika & Bahasa Inggris",
+    description: "Lembaga kursus berkualitas dengan maksimal 10 siswa per kelas. Biaya terjangkau dan suasana kekeluargaan.",
+    type: "website",
+    locale: "id_ID",
+  }
+}
 
 export default function RootLayout({
   children,
