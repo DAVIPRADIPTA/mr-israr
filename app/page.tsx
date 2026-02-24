@@ -3,6 +3,7 @@
 import React from 'react';
 import { BookOpen, Calculator, MapPin, Phone, Youtube, CheckCircle, Users, Calendar, AlertCircle } from 'lucide-react';
 import { motion, Variants } from 'framer-motion';
+import Image from 'next/image';
 
 
 
@@ -41,7 +42,13 @@ export default function Home() {
           <div className="flex justify-between items-center h-16">
             <div className="flex-shrink-0 flex items-center gap-2">
               {/* Menggunakan warna Teal */}
-              <BookOpen className="h-8 w-8 text-teal-600" />
+              <Image 
+                src="/logo.png" 
+                alt="Logo Mr. Israr Course" 
+                width={40} 
+                height={40} 
+                className="object-contain" // Memastikan proporsi logo tidak peyang
+              />
               <span className="font-bold text-xl tracking-tight text-gray-900">Mr. ISRAR'S COURSE</span>
             </div>
             <div className="hidden md:flex space-x-8">
