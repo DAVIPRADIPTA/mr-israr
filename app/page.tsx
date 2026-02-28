@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BookOpen, Calculator, MapPin, Phone, Youtube, CheckCircle, Users, Calendar, AlertCircle } from 'lucide-react';
 import { motion, Variants } from 'framer-motion';
 import Image from 'next/image';
@@ -29,6 +29,37 @@ const containerStagger: Variants = {
 };
 
 export default function Home() {
+  const [jadwal, setJadwal] = useState<any[]>([]);
+  const [pengaturan, setPengaturan] = useState<any>({}); // <-- Tambahkan ini
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Fetch Jadwal
+    fetch('/api/jadwal')
+      .then((res) => res.json())
+      .then((data) => {
+        setJadwal(data);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.error("Gagal mengambil data jadwal:", err);
+        setIsLoading(false);
+      });
+
+    // Fetch Pengaturan <-- Tambahkan blok ini
+    fetch('/api/pengaturan')
+      .then((res) => res.json())
+      .then((data) => setPengaturan(data))
+      .catch((err) => console.error("Gagal mengambil pengaturan:", err));
+  }, []);
+  const bahasaInggris = jadwal.filter(item => 
+    item.kategori && item.kategori.trim().toLowerCase() === 'bahasa inggris'
+  );
+  
+  const matematika = jadwal.filter(item => 
+    item.kategori && item.kategori.trim().toLowerCase() === 'matematika'
+  );
+  
   return (
     <div className="min-h-screen bg-gray-50 text-gray-800 font-sans overflow-hidden">
       {/* NAVBAR */}
@@ -273,88 +304,58 @@ export default function Home() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200 text-sm md:text-base bg-white">
-                {/* Bahasa Inggris - Subheader Teal */}
-                <tr className="bg-teal-50">
-                  <td colSpan={6} className="p-4 font-bold text-teal-800 text-lg">Mata Pelajaran Bahasa Inggris</td>
-                </tr>
-                {/* Row Hover effect */}
-                <tr className="hover:bg-teal-50/30 transition-colors">
-                  <td className="p-4"><span className="font-bold text-gray-900 block">INTRODUCTION 2</span><span className="text-gray-500 text-sm">Kls Lanjutan & 4 SD</span></td>
-                  <td className="p-4">Senin - Selasa</td>
-                  <td className="p-4">Rabu</td>
-                  <td className="p-4 font-medium text-teal-700">14.15 - 15.30 WIB</td>
-                  <td className="p-4">02 Februari 2026</td>
-                  <td className="p-4 text-center font-bold">1</td>
-                </tr>
-                <tr className="hover:bg-teal-50/30 transition-colors">
-                  <td className="p-4"><span className="font-bold text-gray-900 block">INTRODUCTION 1 A</span><span className="text-gray-500 text-sm">Kls 3 SD</span></td>
-                  <td className="p-4">Senin - Selasa</td>
-                  <td className="p-4">Rabu</td>
-                  <td className="p-4 font-medium text-teal-700">15.45 - 17.00 WIB</td>
-                  <td className="p-4">02 Februari 2026</td>
-                  <td className="p-4 text-center font-bold">1</td>
-                </tr>
-                <tr className="hover:bg-teal-50/30 transition-colors">
-                  <td className="p-4"><span className="font-bold text-gray-900 block">INTRODUCTION 1 B</span><span className="text-gray-500 text-sm">Kls 3 SD</span></td>
-                  <td className="p-4">Jum'at - Sabtu</td>
-                  <td className="p-4">Kamis</td>
-                  <td className="p-4 font-medium text-teal-700">14.15 - 15.30 WIB</td>
-                  <td className="p-4">06 Februari 2026</td>
-                  <td className="p-4 text-center font-bold">1</td>
-                </tr>
-                 <tr className="hover:bg-teal-50/30 transition-colors">
-                  <td className="p-4"><span className="font-bold text-gray-900 block">INTRODUCTION 4 B</span><span className="text-gray-500 text-sm">Kls 5, 6 SD & Lanjutan</span></td>
-                  <td className="p-4">Jum'at - Sabtu</td>
-                  <td className="p-4">Kamis</td>
-                  <td className="p-4 font-medium text-teal-700">15.45 - 17.00 WIB</td>
-                  <td className="p-4">06 Februari 2026</td>
-                  <td className="p-4 text-center font-bold">1</td>
-                </tr>
-                <tr className="hover:bg-teal-50/30 transition-colors">
-                  <td className="p-4"><span className="font-bold text-gray-900 block">INTRODUCTION 4 A</span><span className="text-gray-500 text-sm">Kls 5, 6 SD & Lanjutan</span></td>
-                  <td className="p-4">Sabtu (08.00-09.30)</td>
-                  <td className="p-4">Minggu (08.00-09.30)</td>
-                  <td className="p-4 font-medium text-teal-700">Sesuai Hari</td>
-                  <td className="p-4">07 Februari 2026</td>
-                  <td className="p-4 text-center font-bold">1</td>
-                </tr>
-                <tr className="hover:bg-teal-50/30 transition-colors">
-                  <td className="p-4"><span className="font-bold text-gray-900 block">BEGINNER ONE</span><span className="text-gray-500 text-sm">Kls Lanjutan & 7 SMP</span></td>
-                  <td className="p-4">Jum'at - Sabtu</td>
-                  <td className="p-4">Kamis</td>
-                  <td className="p-4 font-medium text-teal-700">14.15 - 15.30 WIB</td>
-                  <td className="p-4">06 Februari 2026</td>
-                  <td className="p-4 text-center font-bold">2</td>
-                </tr>
-                <tr className="hover:bg-teal-50/30 transition-colors">
-                  <td className="p-4"><span className="font-bold text-gray-900 block">BEGINNER TWO</span><span className="text-gray-500 text-sm">Kls Lanjutan & 8 SMP</span></td>
-                  <td className="p-4">Rabu - Kamis</td>
-                  <td className="p-4">Sabtu</td>
-                  <td className="p-4 font-medium text-teal-700">15.45 - 17.00 WIB</td>
-                  <td className="p-4">02 Februari 2026</td>
-                  <td className="p-4 text-center font-bold">2</td>
-                </tr>
-                <tr className="hover:bg-teal-50/30 transition-colors">
-                  <td className="p-4"><span className="font-bold text-gray-900 block">BEGINNER THREE</span><span className="text-gray-500 text-sm">Kls Lanjutan & 9 SMP</span></td>
-                  <td className="p-4">Senin - Selasa</td>
-                  <td className="p-4">Jum'at</td>
-                  <td className="p-4 font-medium text-teal-700">15.45 - 17.00 WIB</td>
-                  <td className="p-4">04 Februari 2026</td>
-                  <td className="p-4 text-center font-bold">2</td>
-                </tr>
+                {isLoading ? (
+                  // Tampilan saat data sedang dimuat
+                  <tr>
+                    <td colSpan={6} className="p-10 text-center text-gray-500 font-medium">
+                      Memuat jadwal terbaru dari server...
+                    </td>
+                  </tr>
+                ) : (
+                  <>
+                    {/* --- MATA PELAJARAN BAHASA INGGRIS --- */}
+                    {bahasaInggris.length > 0 && (
+                      <tr className="bg-teal-50">
+                        <td colSpan={6} className="p-4 font-bold text-teal-800 text-lg">Mata Pelajaran Bahasa Inggris</td>
+                      </tr>
+                    )}
+                    
+                    {bahasaInggris.map((item, index) => (
+                      <tr key={`inggris-${index}`} className="hover:bg-teal-50/30 transition-colors">
+                        <td className="p-4">
+                          <span className="font-bold text-gray-900 block">{item.level}</span>
+                          <span className="text-gray-500 text-sm">{item.target_siswa}</span>
+                        </td>
+                        <td className="p-4">{item.hari_materi}</td>
+                        <td className="p-4">{item.hari_hafalan}</td>
+                        <td className="p-4 font-medium text-teal-700">{item.jam_belajar}</td>
+                        <td className="p-4">{item.mulai_belajar}</td>
+                        <td className="p-4 text-center font-bold">{item.gedung}</td>
+                      </tr>
+                    ))}
 
-                {/* Matematika - Subheader Indigo Muda */}
-                <tr className="bg-indigo-50">
-                  <td colSpan={6} className="p-4 font-bold text-indigo-800 text-lg">Mata Pelajaran Matematika</td>
-                </tr>
-                <tr className="hover:bg-indigo-50/30 transition-colors">
-                  <td className="p-4"><span className="font-bold text-gray-900 block">LEVEL 1</span><span className="text-gray-500 text-sm">Kls 2 & 3 SD</span></td>
-                  <td className="p-4">Senin - Selasa</td>
-                  <td className="p-4">-</td>
-                  <td className="p-4 font-medium text-indigo-700">14.15 - 15.30 WIB</td>
-                  <td className="p-4">02 Februari 2026</td>
-                  <td className="p-4 text-center font-bold">2</td>
-                </tr>
+                    {/* --- MATA PELAJARAN MATEMATIKA --- */}
+                    {matematika.length > 0 && (
+                      <tr className="bg-indigo-50">
+                        <td colSpan={6} className="p-4 font-bold text-indigo-800 text-lg">Mata Pelajaran Matematika</td>
+                      </tr>
+                    )}
+
+                    {matematika.map((item, index) => (
+                      <tr key={`math-${index}`} className="hover:bg-indigo-50/30 transition-colors">
+                        <td className="p-4">
+                          <span className="font-bold text-gray-900 block">{item.level}</span>
+                          <span className="text-gray-500 text-sm">{item.target_siswa}</span>
+                        </td>
+                        <td className="p-4">{item.hari_materi}</td>
+                        <td className="p-4">{item.hari_hafalan}</td>
+                        <td className="p-4 font-medium text-indigo-700">{item.jam_belajar}</td>
+                        <td className="p-4">{item.mulai_belajar}</td>
+                        <td className="p-4 text-center font-bold">{item.gedung}</td>
+                      </tr>
+                    ))}
+                  </>
+                )}
               </tbody>
             </table>
           </motion.div>
@@ -368,10 +369,16 @@ export default function Home() {
           >
             <AlertCircle className="text-red-600 w-8 h-8 flex-shrink-0 mt-1" />
             <div>
-              <h4 className="font-bold text-red-800 text-lg mb-2">PENTING: Kuota Terbatas!</h4>
-              <p className="text-red-700 leading-relaxed">
-                Kami sangat menjaga kualitas pembelajaran dengan membatasi <strong>Maksimal 10 Siswa per Kelas</strong>. Pendaftaran otomatis DITUTUP jika kuota penuh atau telah melewati tanggal <strong>14 Maret 2026</strong>. Amankan kursi Anda sekarang!
-              </p>
+              {/* Menampilkan Judul Dinamis */}
+              <h4 className="font-bold text-red-800 text-lg mb-2">
+                {pengaturan.alert_judul || 'Memuat informasi...'}
+              </h4>
+              
+              {/* Menampilkan Teks Dinamis dengan kemampuan membaca tag <b> / HTML */}
+              <div 
+                className="text-red-700 leading-relaxed"
+                dangerouslySetInnerHTML={{ __html: pengaturan.alert_teks || 'Silakan tunggu sebentar...' }}
+              />
             </div>
           </motion.div>
         </div>
