@@ -479,13 +479,13 @@ export default function Home() {
               <div>
                 {/* Menampilkan Judul Dinamis */}
                 <h4 className="font-bold text-red-800 text-lg mb-2">
-                  {pengaturan.alert_judul || 'info penting !!'}
+                  {pengaturan.alert_judul || 'PENTING: Kuota Terbatas'}
                 </h4>
 
                 {/* Menampilkan Teks Dinamis dengan kemampuan membaca tag <b> / HTML */}
                 <div
                   className="text-red-700 leading-relaxed"
-                  dangerouslySetInnerHTML={{ __html: pengaturan.alert_teks || 'kelas terbatas' }}
+                  dangerouslySetInnerHTML={{ __html: pengaturan.alert_teks || 'Silahkan hubungi kami untuk informasi pendaftaran' }}
                 />
               </div>
             </motion.div>
