@@ -360,27 +360,29 @@ export default function Home() {
             </table>
           </motion.div>
 
-          <motion.div 
-             initial="hidden"
-             whileInView="visible"
-             viewport={{ once: true }}
-             variants={fadeInUp}
-             className="mt-8 bg-red-50 border-l-4 border-red-500 p-6 rounded-r-xl flex items-start gap-4 shadow-sm"
-          >
-            <AlertCircle className="text-red-600 w-8 h-8 flex-shrink-0 mt-1" />
-            <div>
-              {/* Menampilkan Judul Dinamis */}
-              <h4 className="font-bold text-red-800 text-lg mb-2">
-                {pengaturan.alert_judul || 'Memuat informasi...'}
-              </h4>
-              
-              {/* Menampilkan Teks Dinamis dengan kemampuan membaca tag <b> / HTML */}
-              <div 
-                className="text-red-700 leading-relaxed"
-                dangerouslySetInnerHTML={{ __html: pengaturan.alert_teks || 'Silakan tunggu sebentar...' }}
-              />
-            </div>
-          </motion.div>
+          {jadwal.length > 0 && (
+            <motion.div 
+               initial="hidden"
+               whileInView="visible"
+               viewport={{ once: true }}
+               variants={fadeInUp}
+               className="mt-8 bg-red-50 border-l-4 border-red-500 p-6 rounded-r-xl flex items-start gap-4 shadow-sm"
+            >
+              <AlertCircle className="text-red-600 w-8 h-8 flex-shrink-0 mt-1" />
+              <div>
+                {/* Menampilkan Judul Dinamis */}
+                <h4 className="font-bold text-red-800 text-lg mb-2">
+                  {pengaturan.alert_judul || 'PENTING: Kuota Terbatas!'}
+                </h4>
+                
+                {/* Menampilkan Teks Dinamis dengan kemampuan membaca tag <b> / HTML */}
+                <div 
+                  className="text-red-700 leading-relaxed"
+                  dangerouslySetInnerHTML={{ __html: pengaturan.alert_teks || 'Silakan hubungi kami untuk informasi pendaftaran.' }}
+                />
+              </div>
+            </motion.div>
+          )}
         </div>
       </section>
 
