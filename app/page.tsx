@@ -103,7 +103,7 @@ export default function Home() {
                 height={70}
                 className="object-contain" // Memastikan proporsi logo tidak peyang
               />
-              <span className="font-bold text-xl tracking-tight text-gray-900">Mr. ISRAR'S COURSE</span>
+              <span className="font-bold text-xl tracking-tight text-gray-900">Mr. ISRAR'S MATH AND ENGLISH COURSE</span>
             </div>
             <div className="hidden md:flex space-x-8">
               <a href="#program" className="text-gray-600 hover:text-teal-600 font-medium transition-colors">Program & Jadwal</a>
@@ -166,9 +166,13 @@ export default function Home() {
               <Users className="text-teal-300 w-5 h-5" />
               <span>Maksimal 10 Siswa/Kelas (Fokus)</span>
             </div>
+
             <div className="flex items-center gap-2 bg-red-500/20 py-2 px-4 rounded-lg backdrop-blur-sm border border-red-400/30 text-red-200">
               <AlertCircle className="w-5 h-5" />
-              <span>Batas Daftar: 14 Maret 2026</span>
+              {/* Bagian ini sekarang mengambil data dinamis dari Excel */}
+              <span
+                dangerouslySetInnerHTML={{ __html: pengaturan.alert_teks || 'Batas Daftar: 14 Maret 2026' }}
+              />
             </div>
           </motion.div>
         </motion.div>
@@ -231,89 +235,79 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SECTION GALERI (Muncul jika ada data) */}
-      {galeri && galeri.length > 0 && (
-        <section className="py-16 bg-slate-900 overflow-hidden">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeInUp}
-              className="text-center mb-12"
-            >
-              <h2 className="text-3xl font-bold text-white">Suasana Belajar Kami</h2>
-              <div className="w-24 h-1 bg-teal-500 mx-auto mt-4 rounded-full"></div>
-              <p className="mt-4 text-slate-300">Intip keseruan dan fokusnya anak-anak saat belajar bersama Mr. Israr.</p>
+      {/* SECTION GALERI STATIS (Tanpa Syarat) */}
+      <section className="py-16 bg-slate-900 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl font-bold text-white">Suasana Belajar Kami</h2>
+            <div className="w-24 h-1 bg-teal-500 mx-auto mt-4 rounded-full"></div>
+            <p className="mt-4 text-slate-300">Intip keseruan dan fokusnya anak-anak saat belajar bersama Mr. Israr.</p>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={containerStagger}
+            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
+          >
+            {/* FOTO 1 */}
+            <motion.div variants={fadeInUp} className="relative group rounded-2xl overflow-hidden shadow-lg aspect-video bg-slate-800">
+              <Image
+                src="/galeri1.jpeg"
+                alt="Fokus Belajar"
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                className="object-cover group-hover:scale-110 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                <p className="text-white p-4 font-medium translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                  Fokus Mengerjakan Latihan
+                </p>
+              </div>
             </motion.div>
 
-           <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={containerStagger}
-              className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
-            >
-              {/* FOTO 1 */}
-              <motion.div
-                variants={fadeInUp}
-                className="relative group rounded-2xl overflow-hidden shadow-lg aspect-video bg-slate-800"
-              >
-                <Image
-                  src="/galeri1.jpeg"
-                  alt="Fokus Belajar"
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className="object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
-                  <p className="text-white p-4 font-medium translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                    Fokus Mengerjakan Latihan
-                  </p>
-                </div>
-              </motion.div>
-
-              {/* FOTO 2 */}
-              <motion.div
-                variants={fadeInUp}
-                className="relative group rounded-2xl overflow-hidden shadow-lg aspect-video bg-slate-800"
-              >
-                <Image
-                  src="/galeri2.png"
-                  alt="Kelas Interaktif"
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className="object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
-                  <p className="text-white p-4 font-medium translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                    Metode Belajar Interaktif
-                  </p>
-                </div>
-              </motion.div>
-
-              {/* FOTO 3 */}
-              <motion.div
-                variants={fadeInUp}
-                className="relative group rounded-2xl overflow-hidden shadow-lg aspect-video bg-slate-800"
-              >
-                <Image
-                  src="/galeri3.jpeg"
-                  alt="Bimbingan Personal"
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className="object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
-                  <p className="text-white p-4 font-medium translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                    Bimbingan Personal
-                  </p>
-                </div>
-              </motion.div>
+            {/* FOTO 2 */}
+            <motion.div variants={fadeInUp} className="relative group rounded-2xl overflow-hidden shadow-lg aspect-video bg-slate-800">
+              <Image
+                src="/galeri2.png"
+                alt="Kelas Interaktif"
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                className="object-cover group-hover:scale-110 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                <p className="text-white p-4 font-medium translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                  Metode Belajar Interaktif
+                </p>
+              </div>
             </motion.div>
-          </div>
-        </section>
-      )}
+
+            {/* FOTO 3 */}
+            <motion.div variants={fadeInUp} className="relative group rounded-2xl overflow-hidden shadow-lg aspect-video bg-slate-800">
+              <Image
+                src="/galeri3.jpeg"
+                alt="Bimbingan Personal"
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                className="object-cover group-hover:scale-110 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+                <p className="text-white p-4 font-medium translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                  Bimbingan Personal
+                </p>
+              </div>
+            </motion.div>
+
+          </motion.div>
+        </div>
+      </section>
 
       {/* PRICING SECTION */}
       <section id="biaya" className="py-20 bg-gray-50">
@@ -467,28 +461,28 @@ export default function Home() {
             </table>
           </motion.div>
 
-          
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeInUp}
-              className="mt-8 bg-red-50 border-l-4 border-red-500 p-6 rounded-r-xl flex items-start gap-4 shadow-sm"
-            >
-              <AlertCircle className="text-red-600 w-8 h-8 flex-shrink-0 mt-1" />
-              <div>
-                {/* Menampilkan Judul Dinamis */}
-                <h4 className="font-bold text-red-800 text-lg mb-2">
-                  {pengaturan.alert_judul || 'PENTING: Kuota Terbatas'}
-                </h4>
 
-                {/* Menampilkan Teks Dinamis dengan kemampuan membaca tag <b> / HTML */}
-                <div
-                  className="text-red-700 leading-relaxed"
-                  dangerouslySetInnerHTML={{ __html: pengaturan.alert_teks || 'Silahkan hubungi kami untuk informasi pendaftaran' }}
-                />
-              </div>
-            </motion.div>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+            className="mt-8 bg-red-50 border-l-4 border-red-500 p-6 rounded-r-xl flex items-start gap-4 shadow-sm"
+          >
+            <AlertCircle className="text-red-600 w-8 h-8 flex-shrink-0 mt-1" />
+            <div>
+              {/* Menampilkan Judul Dinamis */}
+              <h4 className="font-bold text-red-800 text-lg mb-2">
+                {pengaturan.alert_judul || 'PENTING: Kuota Terbatas'}
+              </h4>
+
+              {/* Menampilkan Teks Dinamis dengan kemampuan membaca tag <b> / HTML */}
+              <div
+                className="text-red-700 leading-relaxed"
+                dangerouslySetInnerHTML={{ __html: pengaturan.alert_teks || 'Silahkan hubungi kami untuk informasi pendaftaran' }}
+              />
+            </div>
+          </motion.div>
 
         </div>
       </section>
@@ -505,7 +499,7 @@ export default function Home() {
           >
             <div className="flex items-center gap-2 mb-6">
               <BookOpen className="h-8 w-8 text-teal-400" />
-              <span className="font-bold text-2xl tracking-tight text-white">Mr. ISRAR'S COURSE</span>
+              <span className="font-bold text-2xl tracking-tight text-white">Mr. ISRAR'S MATH AND ENGLISH COURSE</span>
             </div>
             <p className="text-indigo-300 mb-8 max-w-sm leading-relaxed">
               Lembaga Kursus Matematika & Bahasa Inggris terpercaya untuk mencetak generasi muda yang mumpuni dan berkarakter.
